@@ -18,14 +18,14 @@ Make sure that you use the provided autograder and follow the instructions below
 
 ## Run the autograder
 - Run the autograder: `python3 autograder.py`
-- The autograder will look for submissions for each entry present in the class_roster.csv
+- The autograder will look for submissions for each entry present in the `class_roster.csv`
 - For each submission the autograder will
   - Validate if the zip file adheres to the submission guidelines as mentioned in the project document.
     - If Yes; proceed to next step
     - If No; allocate 0 grade points and proceed to the next submission
   - The autograder extracts the credentials.txt from the submission and parses the entries.
   - Use the Grader IAM credentials to test the project as per the grading rubrics and allocate grade points.
-  - The autograder will dump stdout and stderr in a log file named autograder.log
+  - The autograder will dump stdout and stderr in a log file named `autograder.log`
       
 ## Sample Output
 
