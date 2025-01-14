@@ -58,7 +58,7 @@ Make sure that you use the provided autograder and follow the instructions below
   Extracted /home/local/ASUAD/kjha9/git/GTA-CSE546-SPRING-2025/Project-0/grader/submissions/Project0-1225754101.zip to extracted
   This is the submission file path: extracted/credentials
   Found credentials.txt  at extracted/credentials
-  File: extracted/credentials/credentials.txt has values ('AKIA5GLEVSDVHWPNQX5H', 'dygP3gamUan3YAYHQj2RO52zM68OMn/HIV1XFRGl')
+  File: extracted/credentials/credentials.txt has values ('********************', '************************************')
   -------------- CSE546 Cloud Computing Grading Console -----------
   IAM ACESS KEY ID: ********************
   IAM SECRET ACCESS KEY: ************************************
