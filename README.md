@@ -18,14 +18,14 @@ Make sure that you use the provided autograder and follow the instructions below
 
 ## Run the autograder
 - Run the autograder: `python3 autograder.py`
-- The autograder will look for submissions for each entry present in the class_roster.csv
+- The autograder will look for submissions for each entry present in the `class_roster.csv`
 - For each submission the autograder will
   - Validate if the zip file adheres to the submission guidelines as mentioned in the project document.
     - If Yes; proceed to next step
     - If No; allocate 0 grade points and proceed to the next submission
   - The autograder extracts the credentials.txt from the submission and parses the entries.
   - Use the Grader IAM credentials to test the project as per the grading rubrics and allocate grade points.
-  - The autograder will dump stdout and stderr in a log file named autograder.log
+  - The autograder will dump stdout and stderr in a log file named `autograder.log`
       
 ## Sample Output
 
@@ -58,7 +58,7 @@ Make sure that you use the provided autograder and follow the instructions below
   Extracted /home/local/ASUAD/kjha9/git/GTA-CSE546-SPRING-2025/Project-0/grader/submissions/Project0-1225754101.zip to extracted
   This is the submission file path: extracted/credentials
   Found credentials.txt  at extracted/credentials
-  File: extracted/credentials/credentials.txt has values ('AKIA5GLEVSDVHWPNQX5H', 'dygP3gamUan3YAYHQj2RO52zM68OMn/HIV1XFRGl')
+  File: extracted/credentials/credentials.txt has values ('********************', '************************************')
   -------------- CSE546 Cloud Computing Grading Console -----------
   IAM ACESS KEY ID: ********************
   IAM SECRET ACCESS KEY: ************************************
