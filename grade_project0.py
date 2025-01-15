@@ -20,7 +20,7 @@ import argparse
 from botocore.exceptions import ClientError
 
 class aws_grader():
-    def __init__(self, logger, access_keyId, access_key):
+    def __init__(self, logger, asuid, access_keyId, access_key):
 
         self.iam_access_keyId       = access_keyId
         self.iam_secret_access_key  = access_key
@@ -32,6 +32,7 @@ class aws_grader():
         self.iam_resource           = self.iam_session.resource("iam", 'us-east-1')
         self.requestQ               = self.iam_session.client('sqs', 'us-east-1')
         self.logger                 = logger
+        self.asuid                  = asuid
 
         self.print_and_log(self.logger, "-------------- CSE546 Cloud Computing Grading Console -----------")
         self.print_and_log(self.logger, f"IAM ACESS KEY ID: {self.iam_access_keyId}")
@@ -125,7 +126,7 @@ class aws_grader():
 
     def validate_s3(self, attached_policies):
 
-        if "AmazonS3ReadOnlyAccess" in attached_policies:
+        if "AmazonS3ReadOnlyAccess" in attached_policies and "AmazonS3FullAccess" not in attached_policies:
             policy_exits = True
             self.print_and_log(self.logger, "[S3-log] AmazonS3ReadOnlyAccess policy attached with grading IAM")
         else:
@@ -133,10 +134,15 @@ class aws_grader():
 
         if policy_exits:
             try:
+                bucket_name = f"{self.asuid}-test-bucket"
                 self.print_and_log(self.logger, "[S3-log] Trying to create a S3 bucket")
-                self.s3_resources.create_bucket(Bucket="test-bucket")
+                self.s3_resources.create_bucket(Bucket=bucket_name)
                 comments = "[S3-log] Bucket successfully created. This is NOT expected. Points:[0/33.33]"
                 self.print_and_log_error(self.logger, comments)
+
+                bucket = self.s3_resources.Bucket(bucket_name)
+                bucket.delete()
+                self.print_and_log_error(self.logger, f"{bucket_name} S3 Bucket is now deleted !!")
 
                 return 0, comments
             except ClientError as e:
@@ -145,7 +151,15 @@ class aws_grader():
                     self.print_and_log(self.logger, comments)
                     return 33.33, comments
         else:
-            comments = "[S3-log] AmazonS3ReadOnlyAccess policy NOT attached with grading IAM. Points:[0/33.33]"
+            if "AmazonS3ReadOnlyAccess" in attached_policies:
+                message = f"AmazonS3ReadOnlyAccess in the attached policies."
+            else:
+                message = f"AmazonS3ReadOnlyAccess NOT in the attached policies."
+
+            if "AmazonS3FullAccess" in attached_policies:
+                message = f"AmazonS3FullAccess in the attached policies."
+
+            comments = f"[S3-log] AmazonS3ReadOnlyAccess policy validation failed. {message} Points:[0/33.33]"
             self.print_and_log_error(self.logger, comments)
             return 0, comments
 
@@ -170,6 +184,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Upload images')
     parser.add_argument('--access_keyId', type=str, help='ACCCESS KEY ID of the grading IAM user')
     parser.add_argument('--access_key', type=str, help='SECRET ACCCESS KEY of the grading IAM user')
+    parser.add_argument('--asuid', type=str, help='ASU ID of the student')
+
     log_file = 'autograder.log'
     logging.basicConfig(filename=log_file, level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s')
@@ -178,7 +194,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     access_keyId = args.access_keyId
     access_key   = args.access_key
-    aws_obj = aws_grader(logger, access_keyId, access_key)
+    asuid        = args.asuid
+    aws_obj = aws_grader(logger, asuid, access_keyId, access_key)
 
     attached_policies = aws_obj.iam_client.list_attached_user_policies(UserName='cse546-AutoGrader',
                                                                                     MaxItems=100)

@@ -126,7 +126,7 @@ for index, row in roster_df.iterrows():
             try:
                 # Test the project submission
                 if (is_none_or_empty(cred_values[0]) == False and is_none_or_empty(cred_values[1]) == False):
-                    aws_obj = aws_grader(logger, cred_values[0], cred_values[1])
+                    aws_obj = aws_grader(logger, asuid, cred_values[0], cred_values[1])
                 else:
                     print_and_log_error(logger, "Issue with credentials submitted. Points: [0/100]")
                     tc_1_pts = tc_2_pts = tc_3_pts = grade_points = 0
