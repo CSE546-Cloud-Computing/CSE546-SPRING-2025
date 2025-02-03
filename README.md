@@ -1,4 +1,4 @@
-# Autograder for Project-1
+# Autograder for Project 1 Part 1
 
 Make sure that you use the provided autograder and follow the instructions below to test your project submission. Failure to do so may cause you to lose all the project points and there will be absolutely no second chance.
 
