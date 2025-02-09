@@ -32,9 +32,11 @@ from validate_permission_policies import *
 parser = argparse.ArgumentParser(description='Upload images')
 parser.add_argument('--img_folder', type=str, help='Path to the input images')
 parser.add_argument('--pred_file', type=str, help='Classfication results file')
-args = parser.parse_args()
-img_folder = args.img_folder
-pred_file  = args.pred_file
+parser.add_argument('--num_requests', type=int, help='Number of Requests', default=100)
+args            = parser.parse_args()
+img_folder      = args.img_folder
+pred_file       = args.pred_file
+num_requests    = args.num_requests
 
 log_file = 'autograder.log'
 logging.basicConfig(filename=log_file, level=logging.INFO,
@@ -47,7 +49,7 @@ project_path            = os.path.abspath(".")
 roster_csv              = 'class_roster.csv'
 grader_results_csv      = f'{grade_project}-grades.csv'
 zip_folder_path         = f'{project_path}/submissions'
-sanity_script           = f'{project_path}/test_zip_contents.sh'
+sanity_script           = f'{project_path}/test_zip_contents.py'
 grader_script           = f'{project_path}/grade_project0.py'
 
 print_and_log(logger, f'+++++++++++++++++++++++++++++++ CSE546 Autograder  +++++++++++++++++++++++++++++++')
@@ -62,7 +64,6 @@ print_and_log(logger, f"Project Path: {project_path}")
 print_and_log(logger, f"Grade Project: {grade_project}")
 print_and_log(logger, f"Class Roster: {roster_csv}")
 print_and_log(logger, f"Zip folder path: {zip_folder_path}")
-print_and_log(logger, f"Test zip contents script: {sanity_script}")
 print_and_log(logger, f"Grading script: {grader_script}")
 print_and_log(logger, f"Test Image folder path: {img_folder}")
 print_and_log(logger, f"Classification results file: {pred_file}")
@@ -97,6 +98,7 @@ for index, row in roster_df.iterrows():
     pattern             = os.path.join(zip_folder_path, f'*{asuid}*.zip')
     zip_files           = glob.glob(pattern)
 
+    #pdb.set_trace()
     if zip_files and os.path.isfile(zip_files[0]):
 
         zip_file            = zip_files[0]
@@ -106,7 +108,33 @@ for index, row in roster_df.iterrows():
         kernel_module_pass  = True
 
         # STEP-1: Validate the zip file
-        test_pass, test_status, test_err, test_comments, test_script_err, test_results  = check_zip_contents(logger, sanity_script, zip_file, results)
+
+        extracted_folder = f'extracted'
+        del_directory(logger, extracted_folder)
+        extract_zip(logger, zip_file, extracted_folder)
+
+        credentials_txt_path = "extracted/credentials/credentials.txt"
+        cred_values = read_and_extract_file(logger,credentials_txt_path)
+
+        web_server_path = "extracted/web-tier/server.py"
+        web_server_exist = read_and_extract_file(logger,web_server_path)
+
+        if not cred_values or not web_server_exist:
+            sanity_pass     = False
+            test_pass       = False
+            test_status     = "Fail"
+            test_comments   = f"Sanity Test Failed: All expected files not found. Please check if the zip follows the correct structure as per the project document."
+            test_err        = ""
+            test_script_err = ""
+            test_results    = []
+        else:
+            sanity_pass     = True
+            test_pass       = True
+            test_status     = "Pass"
+            test_comments   = "Sanity Test Passed: All expected files found."
+            test_err        = ""
+            test_script_err = ""
+            test_results    = []
 
         sanity_pass     = test_pass
         sanity_status   = test_status
@@ -119,32 +147,10 @@ for index, row in roster_df.iterrows():
             sanity_comment = "Unzip submission and check folders/files: PASS"
             print_and_log(logger, sanity_comment)
 
-            extracted_folder = f'extracted'
-            del_directory(logger, extracted_folder)
-            extract_zip(logger, zip_file, extracted_folder)
-            directories, files = find_source_code_path(extracted_folder, ["credentials/credentials.txt", "web-tier/server.py"])
-
-            credentials_path     = directories[0]
-            credentials_txt_path = files[0]
-
-            print_and_log(logger, f"This is the submission file path: {credentials_path}")
-
-            if not os.path.exists(credentials_path):
-                print_and_log_error(logger, f"Credentials path does not exist: {credentials_path}")
-                raise FileNotFoundError(f"Credentials path does not exist: {credentials_path}")
-
-            # Check if credentials.txt exits
-            if not os.path.exists(credentials_txt_path):
-                print_and_log_error(logger, f"credentials.txt not found in {credentials_path}")
-                raise FileNotFoundError(f"credentials.txt not found in {credentials_path}")
-
-            print_and_log(logger, f"Found credentials.txt  at {credentials_path}")
-            cred_values = read_and_extract_credentials(logger,credentials_txt_path)
-
             try:
                 # STEP-2: Validate the credentials.txt
                 if (len(cred_values) == 3 and is_none_or_empty(cred_values[0]) == False and is_none_or_empty(cred_values[1]) == False
-                                          and is_none_or_empty(cred_values[2]) == False):
+                                              and is_none_or_empty(cred_values[2]) == False):
                     print_and_log(logger, "Credentials parsing complete.")
                 else:
                     print_and_log_error(logger, "Issue with credentials submitted. Points: [0/100]")
@@ -171,7 +177,7 @@ for index, row in roster_df.iterrows():
                     # STEP-5: Execute test cases
                     aws_grader    = grader_project1(logger, asuid, cred_values[0], cred_values[1], ec2_ro_access_flag, s3_full_access_flag)
                     ip_addr       = cred_values[2]
-                    test_results  = aws_grader.main(ip_addr, img_folder, pred_file)
+                    test_results  = aws_grader.main(num_requests, ip_addr, img_folder, pred_file)
                     grade_points  = test_results["grade_points"]
 
                     grade_comments += test_results["tc_2"][1]
@@ -200,7 +206,7 @@ for index, row in roster_df.iterrows():
             except Exception as e:
                 print_and_log_error(logger, f"Could not remove extracted folder {extracted_folder}: {e}")
         else:
-            sanity_comment = "Unzip submission and check folders/files: FAIL"
+            sanity_comment = f"Unzip submission and check folders/files: FAIL. {test_comments}"
             print_and_log_error(logger, sanity_comment)
             grade_comments += sanity_comment
             tc_2_pts = tc_3_pts = grade_points = 0
@@ -213,7 +219,7 @@ for index, row in roster_df.iterrows():
         sanity_status           = False
         sanity_comment          = f"Submission File (.zip) not found for {asuid}."
         print_and_log_error(logger, sanity_comment)
-        grade_comments      += "{sanity_comment} There is a possiblity that student has misspelled their asuid"
+        grade_comments      += f"{sanity_comment} There is a possiblity that student has misspelled their asuid"
         tc_2_pts = tc_3_pts = grade_points = 0
         results = append_grade_remarks(results, name, asuid, sanity_status, sanity_comment,
                                         "Fail",   grade_comments, tc_2_pts, grade_comments,

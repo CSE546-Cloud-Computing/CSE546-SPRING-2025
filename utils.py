@@ -70,13 +70,16 @@ def find_source_code_path(extracted_folder, file_path_in_zip):
 
     return directories, files
 
-def read_and_extract_credentials(logger, file_path):
+def read_and_extract_file(logger, file_path):
     try:
         with open(file_path, 'r') as file:
-            contents 	= file.read().strip()
-            values 		= contents.split(",")
-            print_and_log(logger, f"File: {file_path} has values {tuple(values)}")
-            return tuple(values)
+            if file_path == "extracted/credentials/credentials.txt": 
+                contents 	= file.read().strip()
+                values 		= contents.split(",")
+                print_and_log(logger, f"File: {file_path} has values {tuple(values)}")
+                return tuple(values)
+            else:
+                return "Other files found!"
     except FileNotFoundError:
         print_and_log_error(logger, f"File not found: {file_path}")
         return None
@@ -84,7 +87,7 @@ def read_and_extract_credentials(logger, file_path):
         print_and_log_error(logger, f"An error occurred: {e}")
         return None
 
-def check_zip_contents(logger, sanity_script, zip_file,results):
+def check_zip_contents(logger, name, asuid, sanity_script, zip_file,results):
 
     grade_comments      = ""
     sanity_pass         = True
@@ -94,8 +97,9 @@ def check_zip_contents(logger, sanity_script, zip_file,results):
 
     try:
         print_and_log(logger, f"Executing {sanity_script} on {zip_file}")
-
-        result          = subprocess.run([sanity_script, zip_file], capture_output=True, text=True, check=True)
+        zip_cmd = ["python3",f"{sanity_script}",f"{zip_file}",]
+        #result          = subprocess.run([sanity_script, zip_file], capture_output=True, text=True, check=True)
+        result          = subprocess.run(zip_cmd, capture_output=True, text=True, check=True)
         stdout_output   = result.stdout
         stderr_output   = result.stderr
         print_and_log(logger, f"{sanity_script} output:")
@@ -132,6 +136,7 @@ def check_zip_contents(logger, sanity_script, zip_file,results):
         sanity_pass          = False
         sanity_status        = "Fail"
         script_err           = f'{e.stderr}'
+        grade_points         = 0
         grade_comments      += f'{e.stderr}'
         grade_comments      += f'{e.stdout}'
         results.append(

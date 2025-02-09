@@ -18,6 +18,7 @@ import logging
 import argparse
 import subprocess
 from botocore.exceptions import ClientError
+import time
 
 WORKLOAD_TIMEOUT = 25
 
@@ -36,7 +37,6 @@ class grader_project1():
         self.s3_full_access_flag    = s3_full_access_flag
         self.in_bucket_name         = f"{asuid}-in-bucket"
         self.simpledb_domain_name   = f"{asuid}-simpleDB"
-
 
     def print_and_log(self, message):
         print(message)
@@ -248,22 +248,16 @@ class grader_project1():
     def validate_latency(self, num_req, stats):
         total_test_score = 40
         latency          = stats.get("test_duration", 0)
-        if latency <= 10:
-            # The total test duration for 1000 requests is less than 10 sec (40)
-            points_deducted = 0
-            comments = f"[Test-Case-3-log] Test Latency: {latency} sec. `latency<=10`."
-        elif (latency > 10 and latency <= 15):
-            # The total test duration for 1000 requests is between 10 sec - 15 sec (20)
-            points_deducted = 20
-            comments = f"[Test-Case-3-log] Test Latency: {latency} sec. `latency>10 and latency<=15`."
-        elif (latency > 15 and latency <= 20):
-            # The test duration for 1000 requests is between 15 seconds - 20 seconds (10)
-            points_deducted = 30
-            comments = f"[Test-Case-3-log] Test Latency: {latency} sec. `latency>15 and latency<=20`."
-        else:
-            #The total test duration for 1000 requests is greater than 20 seconds (0)
-            points_deducted = 40
-            comments = f"[Test-Case-3-log] Test Latency: {latency} sec. `latency>20`."
+        deductions = [(3, 0, "latency<=3"),
+                (6, 20, "latency>3 and latency<=6"),
+                (9, 30, "latency>6 and latency<=9"),
+                (float('inf'), 40, "latency>9")]
+
+        for threshold, points_deducted, condition in deductions:
+            if latency <= threshold:
+                break
+
+        comments = f"[Test-Case-3-log] Test Latency: {latency} sec. `{condition}`."
 
         test_case_points = total_test_score - points_deducted
         test_case_points = max(test_case_points, 0)
@@ -314,7 +308,7 @@ class grader_project1():
 
         return (-1*total_points_deducted), comments
 
-    def main(self, ip_addr, img_folder, pred_file):
+    def main(self, num_requests, ip_addr, img_folder, pred_file):
         test_results = {}
 
         self.print_and_log("-------------- CSE546 Cloud Computing Grading Console -----------")
@@ -326,7 +320,7 @@ class grader_project1():
         self.print_and_log("----------------- Executing Test-Case:2 ----------------")
         test_results["tc_2"] = self.validate_initial_states()
         self.print_and_log("----------------- Executing Test-Case:3 ----------------")
-        test_results["tc_3"] = self.evaluate_iaas(1000, ip_addr, img_folder, pred_file)
+        test_results["tc_3"] = self.evaluate_iaas(num_requests, ip_addr, img_folder, pred_file)
 
         grade_points = sum(result[0] for result in test_results.values())
         if grade_points == 99.99: grade_points = 100
@@ -353,4 +347,4 @@ if __name__ == "__main__":
     access_keyId = args.access_keyId
     access_key   = args.access_key
     asuid        = args.asuid
-    aws_obj = grader_project1(logger, asuid, access_keyId, access_key, True, True)
+    aws_obj      = grader_project1(logger, asuid, access_keyId, access_key, True, True)
