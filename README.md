@@ -67,7 +67,7 @@ Credentials parsing complete.
 IAM ACESS KEY ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 IAM SECRET ACCESS KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 -----------------------------------------------------------------
-Following policies are attached with IAM user:cse546-AutoGrader: ['AmazonEC2ReadOnlyAccess', 'AmazonEC2FullAccess', 'CloudWatchReadOnlyAccess', 'IAMReadOnlyAccess', 'CloudWatchFullAccess', 'SecurityAudit', 'AmazonSQSReadOnlyAccess', 'AmazonS3FullAccess', 'CloudWatchFullAccessV2']
+Following policies are attached with IAM user:cse546-AutoGrader: ['IAMReadOnlyAccess', 'AmazonEC2ReadOnlyAccess', 'AmazonS3FullAccess', 'SecurityAudit']
 [IAM-log] AmazonEC2ReadOnlyAccess policy attached with grading IAM
 [IAM-log] AmazonS3FullAccess policy attached with grading IAM
 [Cloudwatch-log] CAUTION !! You do not have a Cloudwatch alarm set. Kindly refer to the Project-0 document and learn how to set a billing alarm
