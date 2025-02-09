@@ -20,7 +20,7 @@ Make sure that you use the provided autograder and follow the instructions below
 - Run the autograder: `python3 autograder.py --num_requests 100 --img_folder="<dataset folder path>" --pred_file="<output classification csv file path>"`
   ```
   python3 autograder.py --help
-  usage: autograder.py [-h] [--img_folder IMG_FOLDER] [--pred_file PRED_FILE]
+  usage: autograder.py [-h] [--img_folder IMG_FOLDER] [--pred_file PRED_FILE] [--num_requests NUM_REQUESTS]
   Upload images
   options:
   -h, --help            show this help message and exit
