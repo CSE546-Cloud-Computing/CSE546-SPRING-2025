@@ -1,4 +1,4 @@
-# Autograder for Project-1
+# Autograder for Project 1 Part 1
 
 Make sure that you use the provided autograder and follow the instructions below to test your project submission. Failure to do so may cause you to lose all the project points and there will be absolutely no second chance.
 
@@ -80,11 +80,11 @@ Extracted /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/
 54101.zip to extracted
 This is the submission file path: extracted/credentials
 Found credentials.txt  at extracted/credentials
-File: extracted/credentials/credentials.txt has values ('XXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXXXXXXXXXXXXXX', '3.89.222.7')
+File: extracted/credentials/credentials.txt has values ('XXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XX.XX.XX.XX')
 Credentials parsing complete.
 -----------------------------------------------------------------
-IAM ACESS KEY ID: AKIA5GLEVSDVHWPNQX5H
-IAM SECRET ACCESS KEY: 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
+IAM ACESS KEY ID: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+IAM SECRET ACCESS KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXX
 -----------------------------------------------------------------
 Following policies are attached with IAM user:cse546-AutoGrader: ['AmazonEC2ReadOnlyAccess', 'IAMReadOnlyA
 ccess', 'SecurityAudit', 'AmazonS3FullAccess']
