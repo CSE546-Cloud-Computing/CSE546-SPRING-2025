@@ -17,13 +17,14 @@ Make sure that you use the provided autograder and follow the instructions below
   - If you are a grader; use the class roster for the entire class
 
 ## Run the autograder
-- Run the autograder: `python3 autograder.py --img_folder="<dataset folder path>" --pred_file="<output classification csv file path>"`
+- Run the autograder: `python3 autograder.py --num_requests 100 --img_folder="<dataset folder path>" --pred_file="<output classification csv file path>"`
   ```
   python3 autograder.py --help
   usage: autograder.py [-h] [--img_folder IMG_FOLDER] [--pred_file PRED_FILE]
   Upload images
   options:
   -h, --help            show this help message and exit
+  --num_requests NUM_REQUESTS  Number of Requests
   --img_folder IMG_FOLDER Path to the input images
   --pred_file PRED_FILE Classfication results file
   ```
@@ -58,43 +59,22 @@ Classification results file: ../../Classification Results on Face Dataset (1000 
 Autograder Results: Project-1-grades.csv
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++ Grading for Doe John ASUID: 1225754101 +++++++++++++++++++++
-Executing /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/test_zip_contents.sh on /U
-sers/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/submissions/Project0-1225754101.zip
-/Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/test_zip_contents.sh output:
-[log]: Look for credentials directory (credentials)
-[log]: - directory /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/unzip_1736660704/
-credentials found
-[log]: Look for credentials.txt
-[log]: - file /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/unzip_1736660704/crede
-ntials/credentials.txt found
-[log]: Look for web-tier directory (web-tier)
-[log]: - directory /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/unzip_1736660704/
-web-tier found
-[log]: Look for server.py
-[log]: - file /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/unzip_1736660704/web-t
-ier/server.py found
-[test_zip_contents]: Passed
-
+Extracted /home/local/ASUAD/kjha9/git/cse546-github-test/CSE546-SPRING-2025/submissions/Project1-1225754101.zip to extracted
+File: extracted/credentials/credentials.txt has values ('XXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XX.XXX.XX.XX')
 Unzip submission and check folders/files: PASS
-Extracted /Users/kritshekhar/git/GTA-CSE546-SPRING-2025/Project-1/part-1/grader/submissions/Project0-12257
-54101.zip to extracted
-This is the submission file path: extracted/credentials
-Found credentials.txt  at extracted/credentials
-File: extracted/credentials/credentials.txt has values ('XXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXXXXXXXXXXXXXX', 'XX.XX.XX.XX')
 Credentials parsing complete.
 -----------------------------------------------------------------
-IAM ACESS KEY ID: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-IAM SECRET ACCESS KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+IAM ACESS KEY ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+IAM SECRET ACCESS KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 -----------------------------------------------------------------
-Following policies are attached with IAM user:cse546-AutoGrader: ['AmazonEC2ReadOnlyAccess', 'IAMReadOnlyA
-ccess', 'SecurityAudit', 'AmazonS3FullAccess']
+Following policies are attached with IAM user:cse546-AutoGrader: ['AmazonEC2ReadOnlyAccess', 'AmazonEC2FullAccess', 'CloudWatchReadOnlyAccess', 'IAMReadOnlyAccess', 'CloudWatchFullAccess', 'SecurityAudit', 'AmazonSQSReadOnlyAccess', 'AmazonS3FullAccess', 'CloudWatchFullAccessV2']
 [IAM-log] AmazonEC2ReadOnlyAccess policy attached with grading IAM
 [IAM-log] AmazonS3FullAccess policy attached with grading IAM
 [Cloudwatch-log] CAUTION !! You do not have a Cloudwatch alarm set. Kindly refer to the Project-0 document and learn how to set a billing alarm
 -------------- CSE546 Cloud Computing Grading Console -----------
-IAM ACESS KEY ID: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-IAM SECRET ACCESS KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-Web-Instance IP Address: 3.89.222.7
+IAM ACESS KEY ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+IAM SECRET ACCESS KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Web-Instance IP Address: XX.XXX.XX.XX
 -----------------------------------------------------------------
 ----------------- Executing Test-Case:2 ----------------
 [EC2-log] AmazonEC2ReadOnlyAccess policy attached with grading IAM
@@ -106,25 +86,25 @@ Web-Instance IP Address: 3.89.222.7
 [DB-log] SimpleDB Domain: 1225754101-simpleDB exist
 [DB-log] SimpleDB Domain: 1225754101-simpleDB exist with 1000 items. Points deducted:0
 ----------------- Executing Test-Case:3 ----------------
-[Workload-gen] Attempt-1 1000/1000 requests successful.
+[Workload-gen] Attempt-1 100/100 requests successful.
 [Workload-gen] All requests have been processed or retried.
 [Workload-gen] ----- Workload Generator Statistics -----
-[Workload-gen] Total number of requests: 1000
-[Workload-gen] Total number of requests completed successfully: 1000
+[Workload-gen] Total number of requests: 100
+[Workload-gen] Total number of requests completed successfully: 100
 [Workload-gen] Total number of failed requests: 0
-[Workload-gen] Total number of correct predictions : 1000
+[Workload-gen] Total number of correct predictions : 100
 [Workload-gen] Total number of wrong predictions: 0
-[Workload-gen] Total Test Duration: 5.070960998535156 (seconds)
+[Workload-gen] Total Test Duration: 0.7521615028381348 (seconds)
 [Workload-gen] -----------------------------------
 
 [S3-log] Bucket:1225754101-in-bucket is now EMPTY !!
-[Test-Case-3-log] 1000/1000 entries in S3 bucket:1225754101-in-bucket.Points:[20.0/20]
-[Test-Case-3-log] 1000/1000 completed successfully.Points:[20.0/20]
-[Test-Case-3-log] 1000/1000 correct predictions.Points:[20.0/20]
-[Test-Case-3-log] Test Latency: 5.070960998535156 sec. `latency<=10`.Points:[40/40]
+[Test-Case-3-log] 100/100 entries in S3 bucket:1225754101-in-bucket.Points:[20.0/20]
+[Test-Case-3-log] 100/100 completed successfully.Points:[20.0/20]
+[Test-Case-3-log] 100/100 correct predictions.Points:[20.0/20]
+[Test-Case-3-log] Test Latency: 0.7521615028381348 sec. `latency<=3`.Points:[40/40]
 Total Grade Points: 100.0
 Removed extracted folder: extracted
-Execution Time for Doe John ASUID: 1225754101: 70.24327301979065 seconds
+Execution Time for Doe John ASUID: 1225754101: 4.614058494567871 seconds
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Grading complete for Project-1. Check the Project-1-grades.csv file.
   ```
