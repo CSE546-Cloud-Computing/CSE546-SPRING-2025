@@ -504,22 +504,26 @@ class grader_project1():
             self.print_and_log_error(f"[AS-log] SQS messages in {sqs_queue_name} do not start and end at 0. Points deducted: {points_deducted}")
             return (sqs_as_points - points_deducted), comments
 
-        increasing      = False
-        peak_reached    = False
+        if sqs_queue_name == self.req_sqs_name:
+            increasing      = False
+            peak_reached    = False
 
-        for i in range(1, len(req_queue_counts)):
-            if req_queue_counts[i] > req_queue_counts[i - 1]:
-                increasing = True
-            elif req_queue_counts[i] < req_queue_counts[i - 1] and increasing:
-                peak_reached = True
+            for i in range(1, len(req_queue_counts)):
+                if req_queue_counts[i] > req_queue_counts[i - 1]:
+                    increasing = True
+                elif req_queue_counts[i] < req_queue_counts[i - 1] and increasing:
+                    peak_reached = True
 
-        if increasing and peak_reached:
+            if increasing and peak_reached:
+                comments += f"[AS-log] SQS messages in {sqs_queue_name} increased from 0 and reduced back to 0. Points:[{sqs_as_points}/{sqs_as_points}]\n"
+                self.print_and_log(f"[AS-log] SQS messages in {sqs_queue_name} increased from 0 and reduced back to 0. Points:[{sqs_as_points}/{sqs_as_points}]")
+            else:
+                points_deducted += sqs_as_points
+                comments += f"[AS-log] SQS message pattern in {sqs_queue_name} is not as expected. Points deducted: {points_deducted}\n"
+                self.print_and_log_error(f"[AS-log] SQS message pattern in {sqs_queue_name} is not as expected. Points deducted: {points_deducted}")
+        else:
             comments += f"[AS-log] SQS messages in {sqs_queue_name} increased from 0 and reduced back to 0. Points:[{sqs_as_points}/{sqs_as_points}]\n"
             self.print_and_log(f"[AS-log] SQS messages in {sqs_queue_name} increased from 0 and reduced back to 0. Points:[{sqs_as_points}/{sqs_as_points}]")
-        else:
-            points_deducted += sqs_as_points
-            comments += f"[AS-log] SQS message pattern in {sqs_queue_name} is not as expected. Points deducted: {points_deducted}\n"
-            self.print_and_log_error(f"[AS-log] SQS message pattern in {sqs_queue_name} is not as expected. Points deducted: {points_deducted}")
 
         return (sqs_as_points - points_deducted), comments
 
