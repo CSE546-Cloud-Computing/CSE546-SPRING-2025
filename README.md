@@ -192,7 +192,7 @@ Web-Instance IP Address: XXXXXX
 [Test-Case-3-log] 100/100 entries in S3 bucket:1225754101-in-bucket.Points:[5.0/5]
 [Test-Case-3-log] 100/100 entries in S3 bucket:1225754101-out-bucket.Points:[5.0/5]
 [Test-Case-3-log] 100/100 correct predictions.Points:[10.0/10]
-[Test-Case-3-log] Test average Latency: 0.961222038269043 sec. `avg latency<=1.80s`.Points:[40/40]
+[Test-Case-3-log] Test average Latency: 0.961222038269043 sec. `avg latency<1.2s`.Points:[40/40]
 [Test-Case-3-log] ---------------------------------------------------------
 [AS-log] EC2 instances scale out as expected.Points:[15/15]
 [AS-log] EC2 instances scale back to 0 as expected.Points:[5/5]
