@@ -589,6 +589,16 @@ class grader_project1():
 
             self.print_and_log("[Test-Case-3-log] Waiting for 5sec for the resources to scale in ...")
             scale_in_lat_score, scale_in_lat_log = self.validate_scale_in_latency()
+
+            start = time.time()
+            while True:
+                if (self.get_sqs_queue_length(self.req_sqs_name) == 0
+                    and self.get_sqs_queue_length(self.resp_sqs_name) == 0):
+                    break
+                if time.time() - start >= 5:
+                    break
+                time.sleep(1)
+
             stop_event.set()
             self.print_and_log("[Test-Case-3-log] Stop event set. Waiting for autoscaling thread to finish.")
             validate_autoscaling_thread.join()
