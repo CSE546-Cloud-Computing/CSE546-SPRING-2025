@@ -13,3 +13,4 @@ This repository contains multiple branches. Below is a list of available branche
 | [project-0](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-0) | Autograder for Project-0. |
 | [project-1-part-1](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-1-part-1) | Autograder for Project-1 Part-1. |
 | [project-1-part-2](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-1-part-2) | Autograder for Project-1 Part-2. |
+| [project-2-part-1](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-2-part-1) | Autograder for Project-2 Part-1. |
