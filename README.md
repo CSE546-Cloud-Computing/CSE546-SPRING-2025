@@ -1,16 +1,11 @@
-# CSE546-SPRING-2025
-This is a public repository to facilitate project development for CSE546 Cloud Computing students.
+# Autograder for Project 2 Part 2
 
-### Repository Branches
+Make sure that you use the provided autograder and follow the instructions below to test your project submission. Failure to do so may cause you to lose all the project points and there will be absolutely no second chance.
 
-This repository contains multiple branches. Below is a list of available branches:
-
-| Branch Name  | Description |
-|-------------|------------|
-| [datasets](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/datasets) | The dataset branch. |
-| [model](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/model) | Model code and weights. |
-| [lambda](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/lambda) | Lambda placeholder codes | 
-| [project-0](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-0) | Autograder for Project-0. |
-| [project-1-part-1](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-1-part-1) | Autograder for Project-1 Part-1. |
-| [project-1-part-2](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-1-part-2) | Autograder for Project-1 Part-2. |
-| [project-2-part-1](https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025/tree/project-2-part-1) | Autograder for Project-2 Part-1. |
+- Download the zip file you submitted from Canvas. 
+- Download the autograder from GitHub: `https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025.git`
+  - In order to clone the GitHub repository follow the below steps:
+  - `git clone https://github.com/CSE546-Cloud-Computing/CSE546-SPRING-2025.git`
+  - `cd CSE546-SPRING-2025/`
+  - `git checkout project-2-part-2`
+- Create a directory `submissions` in the CSE546-SPRING-2025 directory and move your zip file to the submissions directory.
