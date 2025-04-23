@@ -1,3 +1,5 @@
+__copyright__   = "Copyright 2025, VISA Lab"
+__license__     = "MIT"
 
 """
 File: grade_project0.py

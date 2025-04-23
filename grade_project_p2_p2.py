@@ -1,3 +1,6 @@
+__copyright__   = "Copyright 2025, VISA Lab"
+__license__     = "MIT"
+
 """
 File: grade_project_p1_p1.py
 Author: Kritshekhar Jha

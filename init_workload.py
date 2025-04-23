@@ -1,3 +1,12 @@
+__copyright__   = "Copyright 2025, VISA Lab"
+__license__     = "MIT"
+
+"""
+File: cloudWatch.py
+Author: Kritshekhar Jha
+Date: 2025-01-01
+Description: Script to verify cloudwatch billing alarm
+"""
 
 import re
 import os

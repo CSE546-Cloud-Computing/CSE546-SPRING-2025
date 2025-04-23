@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+__copyright__   = "Copyright 2025, VISA Lab"
+__license__     = "MIT"
+
 """
 File: utils.py
 Author: Kritshekhar Jha
