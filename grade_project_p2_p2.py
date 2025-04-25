@@ -202,7 +202,7 @@ class grader_project2():
         points_deducted             = 0
         lambda_403_pts_deduction    = 100
 
-        face_recognition_lambda_name = "face-recognition-part-1"
+        face_recognition_lambda_name = "face-recognition"
 
         try:
             fn_response    = self.lambda_function.list_functions()
