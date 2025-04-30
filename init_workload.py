@@ -2,10 +2,10 @@ __copyright__   = "Copyright 2025, VISA Lab"
 __license__     = "MIT"
 
 """
-File: cloudWatch.py
+File: init_workload.py
 Author: Kritshekhar Jha
 Date: 2025-01-01
-Description: Script to verify cloudwatch billing alarm
+Description: Script to initialize and run the workload
 """
 
 import re
@@ -92,7 +92,8 @@ try:
     zip_cmd             = f"zip -r {asu_id}_grading.zip ./{asu_id}_grading/"
     init_workload_cmd   = f"unzip {asu_id}_grading.zip && cd {asu_id}_grading/CSE546-SPRING-2025 && bash {asu_id}_exec.sh"
     #init_workload_cmd   = f"cd {asu_id}_grading/CSE546-SPRING-2025 && bash {asu_id}_exec.sh"
-    iot_cli_scp_cmd     = f"scp -i {pem_file_path} {asu_id}_grading.zip ubuntu@{ip_addr}:~/"
+    #iot_cli_scp_cmd     = f"scp -i {pem_file_path} {asu_id}_grading.zip ubuntu@{ip_addr}:~/"
+    iot_cli_scp_cmd     = f"scp -o StrictHostKeyChecking=no -i {pem_file_path} {asu_id}_grading.zip ubuntu@{ip_addr}:~/"
     pem_permission_cmd  = f"chmod 600 {pem_file_path}"
     sh_permission_cmd   = f"chmod +x {sh_file_path}"
     username            = "ubuntu"
