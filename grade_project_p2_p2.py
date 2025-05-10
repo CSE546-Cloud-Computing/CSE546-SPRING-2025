@@ -349,11 +349,11 @@ class grader_project2():
                             (4.5, 40, "avg latency>=3.5s and avg latency<4.5"),
                             (float('inf'), 60, "avg latency>4.5")]
                 else:
-                    total_test_score    = 80
+                    total_test_score    = 100
                     deductions = [(1.5, 0, "avg latency<1.5s"),
                             (2.5, 20, "avg latency>=1.5s and avg latency<2.5s"),
                             (3.5, 40, "avg latency>=2.5s and avg latency<3.5"),
-                            (float('inf'), 80, "avg latency>3.5")]
+                            (float('inf'), 100, "avg latency>3.5")]
 
 
                 for threshold, points_deducted, condition in deductions:
